@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .msg {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="instructions">
+      <p>Enter a string of characters in the text box. Press submit.</p>
+      <p>
+        The first non repeating letter will be displayed and the string will be
+        re-written based on the number of occurances of each character.
+      </p>
+    </div>
+    <div>
+      <input type="text" class="inputString" />
+      <button onclick="stringToArray(event)">Submit</button>
+    </div>
+    <div class="msg">
+      <p>
+        The first non repeating letter is <span class="nonRepeating"></span>.
+      </p>
+      <p>
+        The inputted string would be <span class="rewrittenString"></span> if
+        spelling was based on the number of occurances.
+      </p>
+    </div>
+    <script>
+      const stringToArray = (event) => {
+        event.preventDefault();
+        document.querySelector('.msg').style.display = 'block';
+        var inputString = document
+          .querySelector('.inputString')
+          .value.toLowerCase()
+          .split('');
+        var firstArr = [];
+        let countArr = [];
+        for (let i = 0; i < inputString.length; i++) {
+          if (
+            inputString.filter((char) => char === inputString[i]).length === 1
+          ) {
+            firstArr.push(inputString[i]);
+            break;
+          }
+        }
+
+        for (let i = 0; i < inputString.length; i++) {
+          countArr.push(
+            inputString.filter((char) => char === inputString[i]).length
+          );
+        }
+
+        let rewrittenString = inputString.sort(function (a, b) {
+          return countArr.indexOf(a) + inputString.indexOf(b);
+        });
+
+        document.querySelector('.nonRepeating').innerText = firstArr[0];
+        document.querySelector('.rewrittenString').innerText = rewrittenString;
+      };
+    </script>
+  </body>
+</html>
